@@ -1,0 +1,9 @@
+[core]
+	whitespace = blank-at-eol,space-before-tab,tab-in-indent
+[user]
+	name = Timur Batyrshin
+	email = timur.batyrshin@flathost.ru
+[color]
+	ui = auto
+[achievement]
+	upload = true
