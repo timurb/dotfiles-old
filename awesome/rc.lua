@@ -310,6 +310,13 @@ end
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
+local safe_movetotag =  function (tag)
+  newtag = tags[client.focus.screen][tag] 
+  if client.focus and newtag then
+    awful.client.movetotag(newtag)
+  end
+end
+
 for i = 2, keynumber do
     globalkeys = awful.util.table.join(globalkeys,
         awful.key({ modkey }, "#" .. i + 8,
@@ -327,14 +334,7 @@ for i = 2, keynumber do
                           awful.tag.viewtoggle(tags[screen][i])
                       end
                   end),
-        awful.key({ modkey, "Shift" }, "#" .. i + 8,
-                  function ()
-			for screen = 1, screen.count() do
-	                      if client.focus and tags[client.focus.screen][i] then
-	                          awful.client.movetotag(tags[client.focus.screen][i])
-	                      end
-			end
-                  end),
+        awful.key({ modkey, "Shift" }, "#" .. i + 8, function() safe_movetotag(i) end ),
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 8,
                   function ()
                       if client.focus and tags[client.focus.screen][i] then
@@ -358,14 +358,7 @@ end
                           awful.tag.viewtoggle(tags[screen][1])
                       end
                   end),
-        awful.key({ modkey, "Shift" }, "grave",
-                  function ()
-			for screen = 1, screen.count() do
-	                      if client.focus and tags[screen][1] then
-	                          awful.client.movetotag(tags[client.focus.screen][1])
-	                      end
-			end
-                  end),
+        awful.key({ modkey, "Shift" }, "grave", function() safe_movetotag(1) end),
         awful.key({ modkey, "Control", "Shift" }, "grave",
                   function ()
                       if client.focus and tags[client.focus.screen][1] then
