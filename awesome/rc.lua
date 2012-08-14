@@ -85,6 +85,24 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- }}}
 
 -- {{{ Wibox
+
+-- Create a pomodoro widget
+
+pomodoro_work = widget({ type = "textbox" })
+pomodoro_rest = widget({ type = "textbox" })
+pomodoro_work.text = "<span color='green'>  Work  |</span>"
+pomodoro_rest.text = "<span color='red'>|  Rest  </span>"
+pomodoro_work:buttons ( awful.util.table.join(
+  awful.button({ }, 1, function() sexec('/home/timurb/bin/pomodoro.sh work') end),
+  awful.button({ }, 2, function() sexec('/home/timurb/bin/pomodoro_status.sh display') end),
+  awful.button({ }, 3, function() sexec('/home/timurb/bin/pomodoro_stop.sh rest') end)
+))
+pomodoro_rest:buttons ( awful.util.table.join(
+  awful.button({ }, 1, function() sexec('/home/timurb/bin/pomodoro.sh rest') end),
+  awful.button({ }, 2, function() sexec('/home/timurb/bin/pomodoro_status.sh display') end),
+  awful.button({ }, 3, function() sexec('/home/timurb/bin/pomodoro_stop.sh work') end)
+))
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
 
@@ -159,6 +177,8 @@ for s = 1, screen.count() do
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
+        pomodoro_rest,
+        pomodoro_work,
         mylayoutbox[s],
         mytextclock,
       s == 1 and mysystray or nil,
