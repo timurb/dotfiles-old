@@ -93,14 +93,14 @@ pomodoro_rest = widget({ type = "textbox" })
 pomodoro_work.text = "<span color='green'>  Work  |</span>"
 pomodoro_rest.text = "<span color='red'>|  Rest  </span>"
 pomodoro_work:buttons ( awful.util.table.join(
-  awful.button({ }, 1, function() sexec('/home/timurb/bin/pomodoro.sh work') end),
+  awful.button({ }, 1, function() sexec('/home/timurb/bin/pomodoro.sh work; /home/timurb/bin/pomodoro_status.sh display') end),
   awful.button({ }, 2, function() sexec('/home/timurb/bin/pomodoro_status.sh display') end),
-  awful.button({ }, 3, function() sexec('/home/timurb/bin/pomodoro_stop.sh rest') end)
+  awful.button({ }, 3, function() sexec('/home/timurb/bin/pomodoro_stop.sh rest; /home/timurb/bin/pomodoro_status.sh display') end)
 ))
 pomodoro_rest:buttons ( awful.util.table.join(
-  awful.button({ }, 1, function() sexec('/home/timurb/bin/pomodoro.sh rest') end),
+  awful.button({ }, 1, function() sexec('/home/timurb/bin/pomodoro.sh rest; /home/timurb/bin/pomodoro_status.sh display') end),
   awful.button({ }, 2, function() sexec('/home/timurb/bin/pomodoro_status.sh display') end),
-  awful.button({ }, 3, function() sexec('/home/timurb/bin/pomodoro_stop.sh work') end)
+  awful.button({ }, 3, function() sexec('/home/timurb/bin/pomodoro_stop.sh work; /home/timurb/bin/pomodoro_status.sh display') end)
 ))
 
 -- Create a textclock widget
